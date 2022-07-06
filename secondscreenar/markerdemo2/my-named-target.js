@@ -64,6 +64,7 @@ AFRAME.registerComponent('xrextras-named-image-target', {
         }
         checkGeometry(detail)
         updateImage({detail})
+        console.log("Showing Model")
         
         // Start video
         // const videoElement = document.getElementById('demo-video-element')

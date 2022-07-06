@@ -10,31 +10,20 @@ AFRAME.registerComponent('animation-manager', {
       this.getTime = this.getTime.bind(this)
       this.initVideoID = this.initVideoID.bind(this)
       this.sendHTTPRequest = this.sendHTTPRequest.bind(this)
-  
       // wait until the model is ready
       this.el.addEventListener('model-loaded', this.modelLoaded)
-  
-      // Create button functionality
-      const play = () => {
-        console.log('play()', this.el.id)
-        this.animationMixer.mixer.timeScale = 1
-      }
-      const pause = () => {
-        console.log('pause()', this.el.id)
-        this.animationMixer.mixer.timeScale = 0
-      }
     },
   
     modelLoaded() {
       this.animationMixer = this.el.components['animation-mixer']
       // set the start time of the first play
-      this.setStartTime()
+      this.setStartTime();
       // set the start time on each loop
-      this.el.addEventListener('animation-loop', this.setStartTime)
+      this.el.addEventListener('animation-loop', this.setStartTime);
       // pause initially
       this.animationMixer.mixer.timeScale = 0
       // find the video by class name and assign it an ID
-      this.initVideoID()
+      this.initVideoID();
     },
     
     /**
