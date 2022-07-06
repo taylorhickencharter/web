@@ -1,3 +1,4 @@
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 const express = require('express');
 const bodyParser = require("body-parser");
 const Joi = require('joi'); //used for validation
@@ -6,16 +7,16 @@ app.use(express.json());
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
  
-const timestamps = [
+var timestamps = [
 {id: 1, time: 0.1}
 ]
  
 // READ
-app.get('/api/timestamps', (req,res)=> {
+app.get('https://10.0.0.182/api/timestamps', (req,res)=> {
 res.send(timestamps);
 });
  
-app.get('/api/timestamps/:id', (req, res) => {
+app.get('https://10.0.0.182/api/timestamps/:id', (req, res) => {
 const timestamp = timestamps.find(c => c.id === parseInt(req.params.id));
  
 if (!timestamp) res.status(404).send('ID does not exist...');
@@ -23,7 +24,7 @@ res.send(timestamp);
 });
  
 // CREATE
-app.post('/api/timestamps', (req, res)=> {
+app.post('https://10.0.0.182/api/timestamps', (req, res)=> {
  
 const { error } = validateTimestamp(req.body);
 if (error){
@@ -41,7 +42,7 @@ res.send(timestamp);
 });
  
 // UPDATE
-app.put('/api/timestamps/:id', (req, res) => {
+app.put('https://10.0.0.182/api/timestamps/:id', (req, res) => {
 const timestamp = timestamps.find(c => c.id === parseInt(req.params.id));
 if (!timestamp) res.status(404).send('Failed to update, record does not exist...');
  
@@ -55,7 +56,7 @@ res.send(timestamp);
 });
  
 // DELETE
-app.delete('/api/timestamps/:id', (req, res) => {
+app.delete('https://10.0.0.182/api/timestamps/:id', (req, res) => {
  
 const timestamp = timestamps.find(c => c.id === parseInt(req.params.id));
 if(!timestamp) res.status(404).send('Failed to delete, record does not exist...');
@@ -77,3 +78,18 @@ return schema.validate(req.body);
 //PORT ENVIRONMENT VARIABLE
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}..`));
+
+
+
+// var url = "https://10.0.0.182:7777";
+// var params = "somevariable=somevalue&anothervariable=anothervalue";
+// var http = new XMLHttpRequest();
+
+// http.open("GET", url+"?"+params, true);
+// http.onreadystatechange = function()
+// {
+//     if(http.readyState == 4 && http.status == 200) {
+//         alert(http.responseText);
+//     }
+// }
+// http.send(null);
