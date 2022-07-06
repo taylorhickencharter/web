@@ -98,8 +98,8 @@ AFRAME.registerComponent('animation-manager', {
     },
   })
 
-  // module.exports = {
-  //   getVideoTime: function() {
-  //      return videoTime;
-  //   }
-  // }
+  module.exports = {
+    getVideoTime: function() {
+       return 30;
+    }
+  }

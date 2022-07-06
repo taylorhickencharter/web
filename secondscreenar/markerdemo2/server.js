@@ -8,9 +8,13 @@ app.use(express.json());
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
  
-var timestamps = [
-{id: 1, time: 0.1}
-]
+// var timestamps = [
+// {id: 1, time: 0.1}
+// ]
+// // Update timestamp with new one
+// let newTime = manager.getVideoTime();
+// timestamps[0]['time'] = newTime;
+var timestamps = {time: manager.getVideoTime()}
  
 // READ
 app.get('/api/timestamps', (req,res)=> {
