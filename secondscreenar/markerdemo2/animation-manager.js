@@ -1,3 +1,4 @@
+
 AFRAME.registerComponent('animation-manager', {
     schema: {
       // in seconds
@@ -12,6 +13,7 @@ AFRAME.registerComponent('animation-manager', {
       this.sendHTTPRequest = this.sendHTTPRequest.bind(this)
       // wait until the model is ready
       this.el.addEventListener('model-loaded', this.modelLoaded)
+      this.numSearches = 0;
     },
   
     modelLoaded() {
@@ -71,7 +73,7 @@ AFRAME.registerComponent('animation-manager', {
       const videoElement = document.getElementById('demo-video-element')
       let videoTime = videoElement.currentTime
       console.log(videoTime)
-      setTimeout(this.getTime, 100)
+      setTimeout(this.getTime, 100);
       return videoTime
     },
 
@@ -95,3 +97,9 @@ AFRAME.registerComponent('animation-manager', {
       http.send(params)
     },
   })
+
+  // module.exports = {
+  //   getVideoTime: function() {
+  //      return videoTime;
+  //   }
+  // }
