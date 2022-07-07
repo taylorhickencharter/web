@@ -13,10 +13,10 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  // socket.on('time', (data) => {
-  //   console.log('timestamp: ' + data);
-  //   timestamps['time'] = data;
-  // });
+  socket.on('time', (data) => {
+    console.log('server: ' + data);
+    timestamps['time'] = data;
+  });
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });

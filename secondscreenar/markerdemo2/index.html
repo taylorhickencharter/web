@@ -106,7 +106,7 @@
     </a-scene>
 
     <script>
-      var socket = io('http://localhost/');
+      var socket = io('http://localhost:8080/');
       var numSearches = 0;
 
       /**
@@ -115,7 +115,8 @@
       function getTime() {
         const videoElement = document.getElementById('demo-video-element');
         let videoTime = videoElement.currentTime;
-        //socket.emit('time', videoTime);
+        console.log('client: ' + videoTime);
+        socket.emit('time', videoTime);
         setTimeout(getTime, 1000);
       }
 
