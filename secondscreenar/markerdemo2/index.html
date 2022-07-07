@@ -20,6 +20,7 @@
 
     <script src="my-named-target.js"></script>
     <script src="animation-manager.js"></script>
+    <script src="node_modules/socket.io/client-dist/socket.io.js"></script>
   </head>
 
   <body>
@@ -103,5 +104,44 @@
         ></a-entity>
       </xrextras-named-image-target>
     </a-scene>
+
+    <script>
+      var socket = io('http://localhost/');
+      var numSearches = 0;
+
+      /**
+       * Retrieve the current timestamp of the video every 100ms (printed to console)
+       */
+      function getTime() {
+        const videoElement = document.getElementById('demo-video-element');
+        let videoTime = videoElement.currentTime;
+        //socket.emit('time', videoTime);
+        setTimeout(getTime, 1000);
+      }
+
+      /**
+       * Locate the video element by class name then assign it an id for easier reference
+       * Then begin getTime()
+       */
+      function initVideoID() {
+        const videoArr = document.getElementsByClassName('landing8-media-video');
+        const arrLength = videoArr.length;
+        if(numSearches < 5) {
+          if (arrLength === 0) {
+            numSearches++;
+            setTimeout(initVideoID, 500);
+            console.log('SEARCHING...');
+          } else {
+            videoArr[0].setAttribute('id', 'demo-video-element'); // Create ID for video
+            console.log('DEMO VIDEO FOUND');
+            getTime();
+          }
+        } else {
+          console.log("DEMO VIDEO COULD NOT BE FOUND");
+        }
+      }
+
+      initVideoID();
+    </script>
   </body>
 </html>
