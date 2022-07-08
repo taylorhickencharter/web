@@ -54,7 +54,6 @@ AFRAME.registerComponent('xrextras-named-image-target', {
         object3D.quaternion.copy(detail.rotation)
         //object3D.scale.set(detail.scale, detail.scale, detail.scale)
         object3D.visible = true
-  
       }
   
       // Display image once image target is found
@@ -64,11 +63,12 @@ AFRAME.registerComponent('xrextras-named-image-target', {
         }
         checkGeometry(detail)
         updateImage({detail})
-        console.log("Showing Model")
+
+        var socket = io('http://localhost:8080/');
+        socket.emit('trigger', 1);
+        console.log('client/trigger: 1')
         
-        // Start video
-        // const videoElement = document.getElementById('demo-video-element')
-        // videoElement.play()
+        // Start video will go here
         
         this.el.emit('xrextrasfound', {}, false)
       }

@@ -5,10 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
-var timestamps = {
-  time: 30000,
-  trigger: 0
-};
+var timestamps = {time: 30000};
 
 app.get('/', (req, res) => {
   res.send(timestamps);
@@ -17,12 +14,8 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('time', (data) => {
-    //console.log('server/time: ' + data);
+    //console.log('server: ' + data);
     timestamps['time'] = data;
-  });
-  socket.on('trigger', (data) => {
-    console.log('server/trigger: ' + data);
-    timestamps['trigger'] = data;
   });
   socket.on('disconnect', () => {
     console.log('user disconnected');

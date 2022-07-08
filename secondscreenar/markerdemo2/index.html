@@ -2,24 +2,29 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>8th Wall Web: Tap to place</title>
+    <title>Second Screen AR Marker Demo</title>
 
-    <!-- We've included a slightly modified version of A-Frame, which fixes some polish concerns -->
+    <!-- Modified version of AFrame -->
     <script src="//cdn.8thwall.com/web/aframe/8frame-1.1.0.min.js"></script>
 
     <!-- Landing Page -->
     <script src='https://cdn.8thwall.com/web/landing-page/landing-page.js'></script>
 
-    <!-- XR Extras - provides utilities like load screen, almost there, and error handling.
-         See github.com/8thwall/web/tree/master/xrextras -->
+    <!-- XR Extras - See github.com/8thwall/web/tree/master/xrextras -->
     <script src="//cdn.8thwall.com/web/xrextras/xrextras.js"></script>
+    <!-- AFrame Extras - animations? -->
     <script src="//cdn.8thwall.com/web/aframe/aframe-extras-6.1.1.min.js"></script>
 
-    <!-- 8thWall Web - Replace the app key here with your own app key -->
+    <!-- 8thWall Web -->
     <script async src="//apps.8thwall.com/xrweb?appKey=LGsnIcOT01x7QUDH8djyKL7FPRh6b86q6FI1CQQ8JXjmq8jqwB9GDKbg75sx0PJ6rHjwm"></script>
 
-    <script src="my-named-target.js"></script>
+    <!-- Custom image target handler, replaces xrextras-named-image-target component -->
+    <script src="image-target-handler.js"></script>
+
+    <!-- Manages model animations such as start time, pause, and play -->
     <script src="animation-manager.js"></script>
+
+    <!-- Connects nodejs server to clients -->
     <script src="node_modules/socket.io/client-dist/socket.io.js"></script>
   </head>
 
@@ -39,7 +44,6 @@
       xrweb>
       <xrextras-resource id="logo" src="./assets/spectrum-logo.png"></xrextras-resource>
 
-      <!-- We can define assets here to be loaded when A-Frame initializes -->
       <a-assets>
         <a-asset-item 
           id="modem-glb" 
@@ -52,9 +56,8 @@
           src="assets/demo-video.mp4">
         </video>
       </a-assets>
-      
 
-      <!-- The raycaster will emit mouse events on scene objects specified with the cantap class -->
+      <!-- The raycaster emits mouse events on scene objects specified with the cantap class -->
       <a-camera
         id="camera"
         position="0 8 0"
@@ -83,7 +86,7 @@
 
       <a-light type="ambient" intensity="0.5"></a-light>
 
-      <!-- Adding the cantap class allows the ground to be clicked -->
+      <!-- Ground can be clicked on -->
       <a-box
         id="ground"
         class="cantap"
@@ -94,7 +97,7 @@
       </a-box>
 
       <xrextras-named-image-target name="spectrum-target">
-        <!-- Add a child entity that can be rotated independently of the image target. -->
+        <!-- Child model can be updated independently from target -->
         <a-entity 
             id="modem"
             gltf-model="#modem-glb"
@@ -115,9 +118,9 @@
       function getTime() {
         const videoElement = document.getElementById('demo-video-element');
         let videoTime = videoElement.currentTime;
-        console.log('client: ' + videoTime);
+        //console.log('client/time: ' + videoTime);
         socket.emit('time', videoTime);
-        setTimeout(getTime, 1000);
+        setTimeout(getTime, 100);
       }
 
       /**

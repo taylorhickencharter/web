@@ -7,12 +7,9 @@ AFRAME.registerComponent('animation-manager', {
       // bind the methods
       this.modelLoaded = this.modelLoaded.bind(this)
       this.setStartTime = this.setStartTime.bind(this)
-      // this.getTime = this.getTime.bind(this)
-      // this.initVideoID = this.initVideoID.bind(this)
       // this.sendHTTPRequest = this.sendHTTPRequest.bind(this)
       // wait until the model is ready
       this.el.addEventListener('model-loaded', this.modelLoaded)
-      //this.numSearches = 0;
     },
   
     modelLoaded() {
@@ -23,8 +20,6 @@ AFRAME.registerComponent('animation-manager', {
       this.el.addEventListener('animation-loop', this.setStartTime);
       // pause initially
       this.animationMixer.mixer.timeScale = 0
-      // find the video by class name and assign it an ID
-      //this.initVideoID();
     },
     
     /**
@@ -41,40 +36,6 @@ AFRAME.registerComponent('animation-manager', {
       this.el.removeEventListener('model-loaded', this.modelLoaded)
       this.el.removeEventListener('animation-loop', this.setStartTime)
     },
-  
-    // /**
-    //  * Locate the video element by class name then assign it an id for easier reference
-    //  * Then begin getTime()
-    //  */
-    //  initVideoID() {
-    //   const videoArr = document.getElementsByClassName('landing8-media-video')
-    //   const arrLength = videoArr.length
-    //   if(this.numSearches < 5) {
-    //     if (arrLength === 0) {
-    //       this.numSearches++
-    //       setTimeout(this.initVideoID, 500)
-    //       console.log('SEARCHING...')
-    //     } else {
-    //       videoArr[0].setAttribute('id', 'demo-video-element')  // Create ID for video
-    //       console.log('DEMO VIDEO FOUND')
-    //       this.getTime()
-    //     }
-    //   } else {
-    //     console.log("DEMO VIDEO COULD NOT BE FOUND")
-    //   }
-    // },
-  
-    // /**
-    //  * Retrieve the current timestamp of the video every 100ms (printed to console)
-    //  * @return current video timestamp
-    //  */
-    // getTime() {
-    //   const videoElement = document.getElementById('demo-video-element')
-    //   let videoTime = videoElement.currentTime
-    //   console.log(videoTime)
-    //   setTimeout(this.getTime, 100);
-    //   return videoTime
-    // },
 
     // /**
     //  * Create an HTTP Request to post the current time to the server
